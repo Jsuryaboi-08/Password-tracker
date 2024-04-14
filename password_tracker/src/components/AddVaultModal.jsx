@@ -1,55 +1,43 @@
-import React from 'react'
-import { useState } from 'react'
-import '../style/AddVaultModal.css'
-import { addComponent } from '../store/users/addUser'
-const AddVaultModal = ({ onClose, onAddVault }) => {
-  const [vaultName, setVaultName] = useState('')
+import React, { useState } from 'react';
+import axios from 'axios';
+import '../style/AddVaultModal.css';
 
-  const handleAddComponent = () => {
-    const componentData = {
-      Name: vaultName,
-      Age: 19,
-    };
-    addComponent(componentData);
-  };
-  const handleFormSubmit = async (e) => {
-       const formData = {
-        Name : vaultName,
-        Age: 11,
-      };
-  
+const AddVaultModal = ({ onClose }) => {
+  const [vaultName, setVaultName] = useState('');
+
+  const handleAddComponent = async (e) => {
+    // e.preventDefault(); // Prevent default form submission behavior
+    console.log("Submitting form");
+
     try {
-      const response = await fetch("http://localhost:3001/api/newUser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      const response = await axios.post('http://localhost:3001/api/newUser', {
+        Name: vaultName,
+        Age: 19,
       });
-  
-      if (response.status === 201) {
-        alert("Form data saved successfully");
-      
-      } else {
-        alert("Error saving form data");
-      }
+
+      console.log(response.data);
+      // Handle success
+      alert('Vault added successfully');
+      onClose(); // Close the modal after successful addition
     } catch (error) {
-      alert("Network error:", error);
+      // Handle error
+      console.error('Error adding vault:', error);
+      alert('Error adding vault. Please try again.');
     }
-};
+  };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={onClose}>×</span>
+    <div className="popup">
+    <div className="popup-content">
+    <span className="close" onClick={onClose}>×</span>
         <h2>Add Vault</h2>
-        <form>
+        <form onSubmit={handleAddComponent}>
           <input type="text" placeholder="Vault name" value={vaultName} onChange={(e) => setVaultName(e.target.value)} />
-          <button type="submit" onClick={handleAddComponent()}>Add</button>
+          <button type="submit" >Add</button>
         </form>
-      </div>
     </div>
-  )
-}
+  </div>
+  );
+};
 
-export default AddVaultModal
+export default AddVaultModal;
