@@ -12,13 +12,7 @@ const Sidebar = () => {
   const [selectedVault, setSelectedVault] = useState(null);
 
 
-  const handleAddComponent = () => {
-    const componentData = {
-      Name: 'New Component',
-      Age: 19,
-    };
-    addComponent(componentData);
-  };
+ 
 
   const handleAddVaultClick = () => {
     setAddVaultOpen(true); // Show the popup when the button is clicked
