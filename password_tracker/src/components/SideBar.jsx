@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addComponent } from '../store/users/addUser';
 import '../style/Sidebar.css';
 import plus from '../assets/plus.png';
 import AddVaultModal from './AddVaultModal';
-
+import axios from 'axios';
 const Sidebar = () => {
 
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isVaultsOpen, setVaultsOpen] = useState(false);
   const [isAddVaultOpen, setAddVaultOpen] = useState(false); // State to manage the popup visibility
   const [selectedVault, setSelectedVault] = useState(null);
+  const [getVaults,setVaults] = useState([]);
 
-
+  const handleVaults = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/api/usernames");
+      setVaults(response.data);
+    } catch (error) {
+      console.error("Error fetching vaults:", error);
+    }
+  };
+  useEffect(() => {
+    handleVaults();
+  }, []);
  
 
   const handleAddVaultClick = () => {
@@ -60,21 +71,22 @@ const Sidebar = () => {
             </button>
           </div>
           <div className={`dropdown-container ${isVaultsOpen ? 'show' : ''}`}>
-          <a href="#" onClick={() => handleVaultItemClick('Private')}
-   className={`vault-item ${selectedVault === 'Private' ? 'selected' : ''}`}>
-  <img src="private-vault-image-placeholder.jpg" alt="Private" className="vault-image" />
-  Private
-</a>
-<a href="#" onClick={() => handleVaultItemClick('Bank')}
-   className={`vault-item ${selectedVault === 'Bank' ? 'selected' : ''}`}>
-  <img src="bank-vault-image-placeholder.jpg" alt="Bank" className="vault-image" />
-  Bank
-</a>
-<a href="#" onClick={() => handleVaultItemClick("Son's Vault")}
-   className={`vault-item ${selectedVault === "Son's Vault" ? 'selected' : ''}`}>
-  <img src="sons-vault-image-placeholder.jpg" alt="Son's Vault" className="vault-image" />
-  Son's Vault
-</a>
+          {getVaults.map((vault) => (
+              <a
+                href="#"
+                onClick={() => handleVaultItemClick(vault)}
+                className={`vault-item ${
+                  selectedVault === vault ? "selected" : ""
+                }`}
+              >
+                <img
+                  src="sons-vault-image-placeholder.jpg"
+                  alt="Son's Vault"
+                  className="vault-image"
+                />
+                {vault}
+              </a>
+            ))}
           </div>
         </div>
       </div>
