@@ -93,3 +93,15 @@
   .open {
     transform: rotate(180deg);
   }
+
+.button-flex {
+  display: flex;
+
+}
+.vaultAdd > img {
+  height: 1rem;
+
+}
+.vaultAdd > button {
+  background: none;
+}

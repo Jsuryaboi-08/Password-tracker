@@ -5,10 +5,10 @@
     margin: 0px;
 }
 .main-bar {
-    padding: 20px;
+    padding: 10px;
     height: 100vh;
     overflow: scroll;
-    width: 400px;
+    min-width: 380px;
     background-color: #282626;
     color: white;
 }

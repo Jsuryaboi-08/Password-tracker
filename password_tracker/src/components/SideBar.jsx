@@ -1,11 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
+import {connect} from 'react-redux'
 import '../style/Sidebar.css'
-
+import { addComponent } from '../store/users/addUser';
+import plus from '../assets/plus.png'
 const Sidebar = () => {
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isVaultsOpen, setVaultsOpen] = useState(false);
-
+    const handleAddComponent = () => {
+        const componentData = {
+            name: 'New Component',
+            description: 'A new component description',
+        };
+        addComponent(componentData);
+  };
+  
   return (
     <div className="sidebar dark">
       <div className="header">
@@ -30,10 +39,14 @@ const Sidebar = () => {
           <a href="#">
           <img src="Watchtower-image-placeholder.jpg" alt="Watchtower" className="profile-image" />
             Watchtower</a>
-          <button className="dropdown-btn" onClick={() => setVaultsOpen(!isVaultsOpen)}>
+          <div className='button-flex'>
+          <div className="dropdown-btn" onClick={() => setVaultsOpen(!isVaultsOpen)}>
             Vaults
             <i className={`fa fa-caret-down ${isVaultsOpen ? 'open' : ''}`}></i>
-          </button>
+            
+          </div>
+          <button className='vaultAdd' onClick={handleAddComponent()}><img src= {plus} alt="" /></button>
+          </div>
           <div className={`dropdown-container ${isVaultsOpen ? 'show' : ''}`}>
             <a href="#">
               <img src="private-vault-image-placeholder.jpg" alt="Private" className="vault-image" />
