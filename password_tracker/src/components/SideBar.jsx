@@ -9,13 +9,7 @@ const Sidebar = () => {
   const [isVaultsOpen, setVaultsOpen] = useState(false);
   const [isAddVaultOpen, setAddVaultOpen] = useState(false); // State to manage the popup visibility
 
-  const handleAddComponent = () => {
-    const componentData = {
-      Name: 'New Component',
-      Age: 19,
-    };
-    addComponent(componentData);
-  };
+ 
 
   const handleAddVaultClick = () => {
     setAddVaultOpen(true); // Show the popup when the button is clicked
@@ -55,7 +49,7 @@ const Sidebar = () => {
               Vaults
               <i className={`fa fa-caret-down ${isVaultsOpen ? 'open' : ''}`}></i>
             </div>
-            <button className="vaultAdd" onClick={handleAddComponent()}>
+            <button className="vaultAdd" onClick={handleAddVaultClick}>
               <img src={plus} alt="" />
             </button>
           </div>
