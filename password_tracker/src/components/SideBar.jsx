@@ -7,10 +7,12 @@ import plus from '../assets/plus.png'
 const Sidebar = () => {
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isVaultsOpen, setVaultsOpen] = useState(false);
+  
     const handleAddComponent = () => {
+      console.log('Adding component');
         const componentData = {
-            name: 'New Component',
-            description: 'A new component description',
+            Name: 'New Component',
+            Age: 19,
         };
         addComponent(componentData);
   };
