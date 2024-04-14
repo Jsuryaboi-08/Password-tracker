@@ -1,0 +1,25 @@
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.search-tool {
+    width: 20rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    border: none;
+    padding: 10px;
+    background-color: rgb(36, 33, 33);
+    color: white;
+    outline: none;
+
+}
+.nav > button {
+    margin-left: 1rem;
+    padding: 10px;
+    border: none;
+    border-radius: 1rem;
+    background-color: rgb(52, 82, 201);
+    color: white;
+    outline: none;
+}

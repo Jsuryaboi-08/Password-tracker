@@ -1,0 +1,33 @@
+*{
+    border: 0px;
+    padding: 0px;
+    overflow: hidden;
+    margin: 0px;
+}
+.main-bar {
+    padding: 20px;
+    height: 100vh;
+    overflow: scroll;
+    width: 400px;
+    background-color: #282626;
+    color: white;
+}
+.main-bar > div > img {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 2rem;
+}
+.main-bar > div  {
+    margin-bottom: 1rem;
+}
+.main-bar-component {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 3rem;
+}
+.main-bar-component:hover {
+    border-radius: 3rem;
+    background-color: #333; /* Adjust the color as desired */
+}

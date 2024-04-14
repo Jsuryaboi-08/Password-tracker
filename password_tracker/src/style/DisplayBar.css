@@ -1,0 +1,46 @@
+.display-bar {
+    padding: 25px;
+    width: 100%;
+    height: 100vh;
+    overflow: scroll;
+    background-color: #282626;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.layout-component {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    margin-bottom: 2rem;
+}
+.layout-component > img {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 3rem;
+}
+.details-cover {
+
+    color: white;
+}
+.user-details {
+    padding: 5px;
+    border: 1px solid white;
+    border-radius: 0.5rem;
+}
+.password {
+    
+    padding: 5px;
+    border: 1px solid white;
+    border-radius: 0.5rem;
+}
+.extra-info {
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+.link {
+    color: rgb(62, 62, 187);
+}
