@@ -55,7 +55,7 @@ const Sidebar = () => {
               Vaults
               <i className={`fa fa-caret-down ${isVaultsOpen ? 'open' : ''}`}></i>
             </div>
-            <button className="vaultAdd" onClick={handleAddVaultClick}>
+            <button className="vaultAdd" onClick={handleAddComponent()}>
               <img src={plus} alt="" />
             </button>
           </div>
