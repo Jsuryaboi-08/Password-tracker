@@ -60,6 +60,7 @@ const FormData = mongoose.model("FormData", {
     return "poor";
   }
   
+
   
   app.post("/api/submitCredentials/:username", async (req, res) => {
     try {
@@ -103,7 +104,18 @@ const FormData = mongoose.model("FormData", {
     }
   });
 
+  app.get("/api/usernames", async (req, res) => {
+    try {
+      const users = await UserAddData.find({}, 'Name'); // Retrieve only the 'Name' field
+      const usernames = users.map(user => user.Name); // Extract usernames from user objects
+      res.status(200).json(usernames);
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching usernames" });
+    }
+  });
 
+  
+  
   app.get("/api/getUser/:username", async (req, res) => {
     try {
       const username = req.params.username;
