@@ -1,20 +1,30 @@
-import React from 'react'
-import { useState } from 'react'
-import {connect} from 'react-redux'
-import '../style/Sidebar.css'
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { addComponent } from '../store/users/addUser';
-import plus from '../assets/plus.png'
+import '../style/Sidebar.css';
+import plus from '../assets/plus.png';
+
 const Sidebar = () => {
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isVaultsOpen, setVaultsOpen] = useState(false);
-    const handleAddComponent = () => {
-        const componentData = {
-            name: 'New Component',
-            description: 'A new component description',
-        };
-        addComponent(componentData);
+  const [isAddVaultOpen, setAddVaultOpen] = useState(false); // State to manage the popup visibility
+
+  const handleAddComponent = () => {
+    const componentData = {
+      name: 'New Component',
+      description: 'A new component description',
+    };
+    addComponent(componentData);
   };
-  
+
+  const handleAddVaultClick = () => {
+    setAddVaultOpen(true); // Show the popup when the button is clicked
+  };
+
+  const handleAddVaultCancel = () => {
+    setAddVaultOpen(false); // Close the popup when canceled
+  };
+
   return (
     <div className="sidebar dark">
       <div className="header">
@@ -31,21 +41,23 @@ const Sidebar = () => {
           <a href="#">
             <img src="All-items-image-placeholder.jpg" alt="All Items" className="profile-image" />
             All Items
-            </a>
+          </a>
           <a href="#">
-          <img src="Favorites-image-placeholder.jpg" alt="Favorites" className="profile-image" />
+            <img src="Favorites-image-placeholder.jpg" alt="Favorites" className="profile-image" />
             Favourites
-            </a>
+          </a>
           <a href="#">
-          <img src="Watchtower-image-placeholder.jpg" alt="Watchtower" className="profile-image" />
-            Watchtower</a>
-          <div className='button-flex'>
-          <div className="dropdown-btn" onClick={() => setVaultsOpen(!isVaultsOpen)}>
-            Vaults
-            <i className={`fa fa-caret-down ${isVaultsOpen ? 'open' : ''}`}></i>
-            
-          </div>
-          <button className='vaultAdd' onClick={handleAddComponent()}><img src= {plus} alt="" /></button>
+            <img src="Watchtower-image-placeholder.jpg" alt="Watchtower" className="profile-image" />
+            Watchtower
+          </a>
+          <div className="button-flex">
+            <div className="dropdown-btn vaultu" onClick={() => setVaultsOpen(!isVaultsOpen)}>
+              Vaults
+              <i className={`fa fa-caret-down ${isVaultsOpen ? 'open' : ''}`}></i>
+            </div>
+            <button className="vaultAdd" onClick={handleAddVaultClick}>
+              <img src={plus} alt="" />
+            </button>
           </div>
           <div className={`dropdown-container ${isVaultsOpen ? 'show' : ''}`}>
             <a href="#">
@@ -63,8 +75,20 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-    </div>
-  )
-}
 
-export default Sidebar
+      {/* Popup for adding a new vault */}
+      {isAddVaultOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <span className="close" onClick={handleAddVaultCancel}>&times;</span>
+            <h2>Add New Vault</h2>
+            <input type="text" placeholder="Vault Name" />
+            <button>Add</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Sidebar;
