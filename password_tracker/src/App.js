@@ -7,6 +7,7 @@ import Layout from './components/Layout';
 function App() {
   return (
     <div className="App">
+      <SideBar></SideBar>
       <MainBar></MainBar>
       <Layout></Layout>
     </div>
