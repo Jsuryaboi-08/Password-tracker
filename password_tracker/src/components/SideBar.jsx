@@ -5,9 +5,12 @@ import '../style/Sidebar.css';
 import plus from '../assets/plus.png';
 
 const Sidebar = () => {
+
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isVaultsOpen, setVaultsOpen] = useState(false);
   const [isAddVaultOpen, setAddVaultOpen] = useState(false); // State to manage the popup visibility
+  const [selectedVault, setSelectedVault] = useState(null);
+
 
   const handleAddComponent = () => {
     const componentData = {
@@ -24,7 +27,9 @@ const Sidebar = () => {
   const handleAddVaultCancel = () => {
     setAddVaultOpen(false); // Close the popup when canceled
   };
-
+  const handleVaultItemClick = (vaultName) => {
+    setSelectedVault(vaultName);
+  };
   return (
     <div className="sidebar dark">
       <div className="header">
@@ -60,18 +65,21 @@ const Sidebar = () => {
             </button>
           </div>
           <div className={`dropdown-container ${isVaultsOpen ? 'show' : ''}`}>
-            <a href="#">
-              <img src="private-vault-image-placeholder.jpg" alt="Private" className="vault-image" />
-              Private
-            </a>
-            <a href="#">
-              <img src="bank-vault-image-placeholder.jpg" alt="Bank" className="vault-image" />
-              Bank
-            </a>
-            <a href="#">
-              <img src="sons-vault-image-placeholder.jpg" alt="Son's Vault" className="vault-image" />
-              Son's Vault
-            </a>
+          <a href="#" onClick={() => handleVaultItemClick('Private')}
+   className={`vault-item ${selectedVault === 'Private' ? 'selected' : ''}`}>
+  <img src="private-vault-image-placeholder.jpg" alt="Private" className="vault-image" />
+  Private
+</a>
+<a href="#" onClick={() => handleVaultItemClick('Bank')}
+   className={`vault-item ${selectedVault === 'Bank' ? 'selected' : ''}`}>
+  <img src="bank-vault-image-placeholder.jpg" alt="Bank" className="vault-image" />
+  Bank
+</a>
+<a href="#" onClick={() => handleVaultItemClick("Son's Vault")}
+   className={`vault-item ${selectedVault === "Son's Vault" ? 'selected' : ''}`}>
+  <img src="sons-vault-image-placeholder.jpg" alt="Son's Vault" className="vault-image" />
+  Son's Vault
+</a>
           </div>
         </div>
       </div>

@@ -45,9 +45,10 @@
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 10px;
+  
 }
 .vaultu{
-  margin: 0;
+  margin-bottom: 10;
   align-items: center;
   margin-right: 10px;
 }
@@ -76,7 +77,12 @@
 }
 
 .dropdown-container a:hover {
-  text-decoration: underline;
+  background-color: #f5f5f5;
+}
+/* it should remain in the same colour after clicking */
+
+.dropdown-container a:active {
+  background-color: #f5f5f5;
 }
 
 .dropdown-container.show {
@@ -119,6 +125,7 @@
 }
 
 /* Styles for Popup */
+
 /* Styles for Popup */
 
 .popup {
@@ -143,7 +150,7 @@
   max-width: 400px; /* Set a maximum width to ensure content doesn't stretch too wide */
   max-height: 80%; /* Limit the height to prevent overflow */
   overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
-  position: relative; /* Relative positioning for absolute close button */
+  position: relative;
 }
 
 .popup-content h2 {
@@ -187,4 +194,16 @@
 
 .close:hover {
   color: #333;
+}
+
+@media (max-width: 480px) {
+  /* Responsive styles for smaller screens */
+  .popup-content {
+    width: 90%; /* Adjust width for smaller screens */
+    max-width: 100%;
+  }
+}
+
+.vault-item.selected {
+  background-color: #f5f5f5; /* change this to the color you want */
 }
