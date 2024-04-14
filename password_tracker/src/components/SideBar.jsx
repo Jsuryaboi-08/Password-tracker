@@ -11,8 +11,8 @@ const Sidebar = () => {
 
   const handleAddComponent = () => {
     const componentData = {
-      name: 'New Component',
-      description: 'A new component description',
+      Name: 'New Component',
+      Age: 19,
     };
     addComponent(componentData);
   };
