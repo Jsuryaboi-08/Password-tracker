@@ -12,7 +12,7 @@ export const addComponent = (componentData) => {
 
         try {
             // Make an API call to the backend to add the component
-            const response = await axios.post('/api/components', componentData);
+            const response = await axios.post('/api/newUser', componentData);
             // Dispatch the success action with the new component data
             dispatch({
                 type: ADD_COMPONENT_SUCCESS,
