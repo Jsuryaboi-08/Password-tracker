@@ -97,6 +97,7 @@ const FormData = mongoose.model("FormData", {
       const userAddData = new UserAddData(req.body);
       await userAddData.save();
       res.status(201).json({ message: "User added successfully"   });
+      console.log("Hey");
     } catch (error) {
       res.status(500).json({ error: "Error adding user" });  
     }

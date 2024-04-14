@@ -5,25 +5,24 @@
 import axios from 'axios';
 import { ADD_COMPONENT, ADD_COMPONENT_SUCCESS, ADD_COMPONENT_FAILURE } from '../types/types';
 // Action creator for adding a component
-export const addComponent = (componentData) => {
-    return async (dispatch) => {
-        // Dispatch the initial action
-        dispatch({ type: ADD_COMPONENT });
+export const addComponent = async (componentData) => {
+    try{
+        const response = await fetch('http://localhost:3001/api/newUser', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(componentData),
+      });
+  
+      if (response.status === 201) {
+        alert("Form data saved successfully");
+        // setFormData({});
+      } else {
+        alert("Error saving form data");
+      }
+    } catch (error) {
+      alert("Network error:", error);
+        }
 
-        try {
-            // Make an API call to the backend to add the component
-            const response = await axios.post('/api/newUser', componentData);
-            // Dispatch the success action with the new component data
-            dispatch({
-                type: ADD_COMPONENT_SUCCESS,
-                payload: response.data,
-            });
-        } catch (error) {
-            // Dispatch the failure action with the error
-            dispatch({
-                type: ADD_COMPONENT_FAILURE,
-                payload: error,
-            });
-        }
-    };
 };
