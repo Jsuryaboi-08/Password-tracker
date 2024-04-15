@@ -15,7 +15,7 @@ To run this project locally, follow these steps:
 
 #### clone repository
 ```bash
-  git clone https://github.com/your-username/password-manager.git
+  git clone https://github.com/Jsuryaboi-08/Password-tracker.git
 ```
 #### Install Dependencies
  ```bash
