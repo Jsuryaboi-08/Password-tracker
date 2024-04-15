@@ -26,3 +26,16 @@ export const addComponent = async (componentData) => {
         }
 
 };
+export const addFiles = async (fileData) => {
+    try {
+        const response = await fetch("http://localhost:3001/api/uploadFile/"+localStorage.getItem("name"), {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify(fileData),
+        });
+    }catch (err) {
+        alert("Network error", err);
+    }
+}

@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 const cors = require("cors");
 const app = express();
 const port = 3001;
+const crypto = require('crypto');
+
 
 mongoose.connect("mongodb+srv://shivastephy45:JcEszzOl9ggKvOWR@cluster1.mjjyzd8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1", {
   useNewUrlParser: true,
@@ -21,10 +23,27 @@ const FormData = mongoose.model("FormData", {
     userID: String
   });
 
-  const UserAddData = mongoose.model("UserAddData", {
+  const FilesSchema = new mongoose.Schema({
+    Email: String,
+    Password: String,
+    Website: String,
+    // Add any other fields relevant to the files
+  });
+  
+  const Files = mongoose.model("Files", FilesSchema);
+  
+  const UserAddDataSchema = new mongoose.Schema({
     Name: String,
     Age: Number,
+    files: [{ type: mongoose.Schema.Types.ObjectId, ref: "Files" }] // Reference to Files schema
   });
+  
+  const UserAddData = mongoose.model("UserAddData", UserAddDataSchema);
+  
+  // const UserAddData = mongoose.model("UserAddData", {
+  //   Name: String,
+  //   Age: Number,
+  // });
 
   app.get("/api/evaluatePassword/:email", async (req, res) => {
     try {
@@ -61,6 +80,59 @@ const FormData = mongoose.model("FormData", {
   }
   
 
+  app.get("/api/files/:userId", async (req, res) => {
+    try {
+      const userId = req.params.userId;
+  
+      const user = await UserAddData.findOne({Name:userId}).populate("files");
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+  
+      const files = user.files.map(file => ({
+        Email: file.Email,
+        Password: file.Password,
+        Website: file.Website
+      }));
+  
+      res.status(200).json(files);
+    } catch (error) {
+      res.status(500).json({ error: "Error retrieving files" });
+    }
+  });
+  
+  app.post("/api/uploadFile/:userId", async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const { Email, Password, Website } = req.body;
+      
+      const hashedPassword = await bcrypt.hash(Password, 10);
+
+      // Encrypt the hashed password using AES
+      const encryptionKey = crypto.randomBytes(32);
+      const iv = crypto.randomBytes(16);
+      const aesCipher = crypto.createCipheriv('aes-256-cbc', encryptionKey, iv);
+      let encryptedPassword = aesCipher.update(hashedPassword, 'utf-8', 'hex');
+      encryptedPassword += aesCipher.final('hex');
+      // Create a new file document
+      const file = new Files({ Email, Password:encryptedPassword, Website });
+      await file.save();
+   
+      // Find the user by ID and associate the file with the user
+      const user = await UserAddData.findOne({Name:userId});
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+  
+      user.files.push(file._id);
+      await user.save();
+  
+      res.status(200).json({ message: "File uploaded and associated with user successfully" });
+    } catch (error) {
+      res.status(500).json({ error: "Error uploading file and associating with user" });
+    }
+  });
+  
   
   app.post("/api/submitCredentials/:username", async (req, res) => {
     try {
@@ -105,7 +177,7 @@ const FormData = mongoose.model("FormData", {
   });
 
   app.get("/api/usernames", async (req, res) => {
-    try {
+    try { 
       const users = await UserAddData.find({}, 'Name'); // Retrieve only the 'Name' field
       const usernames = users.map(user => user.Name); // Extract usernames from user objects
       res.status(200).json(usernames);
@@ -114,7 +186,7 @@ const FormData = mongoose.model("FormData", {
     }
   });
 
-  
+
   
   app.get("/api/getUser/:username", async (req, res) => {
     try {

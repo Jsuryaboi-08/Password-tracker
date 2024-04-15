@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../style/DisplayBar.css'
 import asset from  '../assets/profile.jpg'
 import NavBar from './NavBar' 
+import axios from 'axios'
 const Layout = () => {
+    const [getFiles, setFiles] = useState([]);
+    const handleFiles = async () => {
+        try {
+            console.log(localStorage.getItem("name"));
+
+            const response = await axios.get(`http://localhost:3001/api/files/${localStorage.getItem("name")}`);
+            setFiles(response.data);
+            console.log(response.data)
+        } catch (error) {
+            console.log("Error fetching files:", error);
+        }
+    }
+
+    useEffect(() => {
+        handleFiles();
+      }, [getFiles]);
   return (
     <div className='display-bar'>
         <NavBar></NavBar>   
@@ -15,18 +32,7 @@ const Layout = () => {
         </div>
         </div>
         <div className='details-cover'>
-        <div className='user-details'>
-            <div>username</div>
-            <div>angelinedias53@gmail.com</div>
-        </div>
-        <div className='password'>
-            <div>Password</div>
-            <div>********</div>
-        </div>
-        </div>
-        <div className='extra-info'>
-            <div>website</div>
-            <div className='link'>amazon.com</div>
+        
         </div>
     </div>
   )

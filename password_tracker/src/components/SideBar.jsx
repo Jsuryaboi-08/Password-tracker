@@ -12,18 +12,24 @@ const Sidebar = () => {
   const [isAddVaultOpen, setAddVaultOpen] = useState(false); // State to manage the popup visibility
   const [selectedVault, setSelectedVault] = useState(null);
   const [getVaults,setVaults] = useState([]);
+  const [name, setName] = useState("");
 
   const handleVaults = async () => {
     try {
       const response = await axios.get("http://localhost:3001/api/usernames");
       setVaults(response.data);
+      
     } catch (error) {
       console.error("Error fetching vaults:", error);
     }
   };
+  const handleClick = (vault) => {
+    setName(vault);
+    localStorage.setItem("name", name);
+  }
   useEffect(() => {
     handleVaults();
-  }, []);
+  }, [getVaults]);
  
 
   const handleAddVaultClick = () => {
@@ -70,11 +76,11 @@ const Sidebar = () => {
               <img src={plus} alt="" />
             </button>
           </div>
-          <div className={`dropdown-container ${isVaultsOpen ? 'show' : ''}`}>
+          <div className={`dropdown-container ${isVaultsOpen ? 'show' : ''}`} >
           {getVaults.map((vault) => (
               <a
+                onClick={() => handleClick(vault)}
                 href="#"
-                onClick={() => handleVaultItemClick(vault)}
                 className={`vault-item ${
                   selectedVault === vault ? "selected" : ""
                 }`}
