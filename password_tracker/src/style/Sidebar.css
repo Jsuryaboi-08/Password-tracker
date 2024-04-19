@@ -1,3 +1,15 @@
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar Styles */
 .sidebar {
   width: 20%;
   background-color: #333;
@@ -30,7 +42,7 @@
   width: 100%;
 }
 
-
+/* Dropdown Styles */
 .dropdown-btn {
   display: flex;
   justify-content: space-between;
@@ -44,12 +56,6 @@
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 10px;
-  
-}
-.vaultu{
-  margin-bottom: 10;
-  align-items: center;
-  margin-right: 10px;
 }
 
 .dropdown-btn i {
@@ -78,7 +84,6 @@
 .dropdown-container a:hover {
   background-color: #555;
 }
-/* it should remain in the same colour after clicking */
 
 .dropdown-container a:active {
   background-color: #555;
@@ -111,7 +116,7 @@
 
 .button-flex {
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -123,21 +128,18 @@
   background: none;
 }
 
-/* Styles for Popup */
-
-/* Styles for Popup */
-
+/* Popup Styles */
 .popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999; /* Ensure the popup appears above other content */
+  z-index: 999;
 }
 
 .popup-content {
@@ -145,17 +147,17 @@
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  width: 80%; /* Adjust the width of the popup */
-  max-width: 400px; /* Set a maximum width to ensure content doesn't stretch too wide */
-  max-height: 80%; /* Limit the height to prevent overflow */
-  overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+  width: 80%;
+  max-width: 400px;
+  max-height: 80%;
+  overflow-y: auto;
   position: relative;
 }
 
 .popup-content h2 {
   font-size: 20px;
   margin-bottom: 10px;
-  text-align: center; /* Center the heading */
+  text-align: center;
 }
 
 .popup-content input {
@@ -164,7 +166,7 @@
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-sizing: border-box; /* Ensure padding is included in the width */
+  box-sizing: border-box;
 }
 
 .popup-content button {
@@ -174,8 +176,8 @@
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%; /* Make button fill the width */
-  box-sizing: border-box; /* Ensure padding is included in the width */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .popup-content button:hover {
@@ -196,13 +198,12 @@
 }
 
 @media (max-width: 480px) {
-  /* Responsive styles for smaller screens */
   .popup-content {
-    width: 90%; /* Adjust width for smaller screens */
+    width: 90%;
     max-width: 100%;
   }
 }
 
 .vault-item.selected {
-  background-color: #555; /* change this to the color you want */
+  background-color: #555;
 }
