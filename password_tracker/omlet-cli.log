@@ -1,0 +1,23 @@
+[ERROR 05-19 23:55:54.553][JS] Error: Command failed: git rev-list --max-parents=0 HEAD
+'git' is not recognized as an internal or external command,
+operable program or batch file.
+
+[ERROR 05-19 23:55:54.556][JS] Stack: Error: Command failed: git rev-list --max-parents=0 HEAD
+'git' is not recognized as an internal or external command,
+operable program or batch file.
+
+    at ChildProcess.exithandler (node:child_process:412:12)
+    at ChildProcess.emit (node:events:513:28)
+    at ChildProcess.emit (node:domain:489:12)
+    at maybeClose (node:internal/child_process:1098:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:304:5)
+[ERROR 05-19 23:55:54.561][JS] Error: Could not find commit in git root
+[ERROR 05-19 23:55:54.562][JS] Stack: NoCommitFound: Could not find commit in git root
+    at analyzeRepo (C:\Users\admin\AppData\Local\npm-cache\_npx\6f6f8d36092b5491\node_modules\@omlet\cli\dist\node-src\analyzer.js:685:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async init (C:\Users\admin\AppData\Local\npm-cache\_npx\6f6f8d36092b5491\node_modules\@omlet\cli\dist\node-src\analyzer.js:861:29)
+    at async Command.<anonymous> (C:\Users\admin\AppData\Local\npm-cache\_npx\6f6f8d36092b5491\node_modules\@omlet\cli\dist\node-src\cli.js:307:9)
+    at async Command.parseAsync (C:\Users\admin\AppData\Local\npm-cache\_npx\6f6f8d36092b5491\node_modules\commander\lib\command.js:935:5)
+[ERROR 05-19 23:55:54.563][JS] Context: {
+  "path": "E:/PW TRACK/Password-tracker/password_tracker"
+}

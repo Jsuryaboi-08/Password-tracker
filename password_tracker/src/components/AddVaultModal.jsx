@@ -1,29 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {v4 as uuidv4} from 'uuid';
 import '../style/AddVaultModal.css';
-
+import stores from '../store';
 const AddVaultModal = ({ onClose }) => {
   const [vaultName, setVaultName] = useState('');
+  const addVaults = stores((state) => state.addVaults);
 
-  const handleAddComponent = async (e) => {
+  const handleAddComponent = async (index) => {
     // e.preventDefault(); // Prevent default form submission behavior
-    console.log("Submitting form");
-
-    try {
-      const response = await axios.post('http://localhost:3001/api/newUser', {
-        Name: vaultName,
-        Age: 19,
-      });
-
-      console.log(response.data);
-      // Handle success
-      alert('Vault added successfully');
-      onClose(); // Close the modal after successful addition
-    } catch (error) {
-      // Handle error
-      console.error('Error adding vault:', error);
-      alert('Error adding vault. Please try again.');
-    }
+    const name = {id: uuidv4() , name : vaultName};
+    addVaults(name);
+    onClose();
   };
 
   return (

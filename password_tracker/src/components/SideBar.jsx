@@ -1,10 +1,10 @@
 import React, { useState,useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addComponent } from '../store/users/addUser';
 import '../style/Sidebar.css';
 import plus from '../assets/plus.png';
 import AddVaultModal from './AddVaultModal';
 import axios from 'axios';
+import stores from '../store'
 const Sidebar = () => {
 
   const [isProfileOpen, setProfileOpen] = useState(false);
@@ -13,15 +13,11 @@ const Sidebar = () => {
   const [selectedVault, setSelectedVault] = useState(null);
   const [getVaults,setVaults] = useState([]);
   const [name, setName] = useState("");
+  const vaults = stores((state) => state.vaults);
+  const setVaultIndex = stores((state) => state.setSelectedVaultIndex);
 
   const handleVaults = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/api/usernames");
-      setVaults(response.data);
-      
-    } catch (error) {
-      console.error("Error fetching vaults:", error);
-    }
+    
   };
   const handleClick = (vault) => {
     setName(vault);
@@ -42,6 +38,10 @@ const Sidebar = () => {
   const handleVaultItemClick = (vaultName) => {
     setSelectedVault(vaultName);
   };
+  const handleZust = (index) => {
+    console.log(index);
+    setVaultIndex(index);
+  }
   return (
     <div className="sidebar dark">
       <div className="header">
@@ -76,10 +76,11 @@ const Sidebar = () => {
               <img src={plus} alt="" />
             </button>
           </div>
-          <div className={`dropdown-container ${isVaultsOpen ? 'show' : ''}`} >
-          {getVaults.map((vault) => (
+          <div  >
+          {vaults.map((vault) => (
+            <div onClick={() => handleZust(vault.name.id)} className={`dropdown-container ${isVaultsOpen ? 'show' : ''}`}>
               <a
-                onClick={() => handleClick(vault)}
+                
                 href="#"
                 className={`vault-item ${
                   selectedVault === vault ? "selected" : ""
@@ -88,16 +89,14 @@ const Sidebar = () => {
                 <img
                   src="sons-vault-image-placeholder.jpg"
                   alt="Son's Vault"
-                  className="vault-image"
                 />
-                {vault}
+                {vault.name.name}
               </a>
+              </div>
             ))}
           </div>
         </div>
       </div>
-
-      {/* Popup for adding a new vault */}
       {isAddVaultOpen && (
           <AddVaultModal onClose={handleAddVaultCancel}></AddVaultModal>
       )}
